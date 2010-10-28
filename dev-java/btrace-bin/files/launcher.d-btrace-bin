@@ -1,0 +1,3 @@
+# add tools.jar to the classpath
+export CLASSPATH="$(java-config -t)"
+
