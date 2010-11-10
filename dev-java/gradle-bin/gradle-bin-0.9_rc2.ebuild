@@ -20,7 +20,7 @@ KEYWORDS="~x86 ~amd64"
 DEPEND="app-arch/zip"
 RDEPEND=">=virtual/jdk-1.5"
 
-IUSE="source"
+IUSE="source doc examples"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -35,13 +35,28 @@ src_install() {
 
 	insinto "${gradle_home}"
 
-	java-pkg_dosrc src/*
+	# source
+	if use source ; then
+		java-pkg_dosrc src/*
+	fi
 
+	# docs
+	if use doc ; then
+		java-pkg_dojavadoc docs
+	fi
+
+	# examples
+	if use examples ; then
+		java-pkg_doexamples samples
+	fi
+
+	# jars
 	cd lib
 	for jar in *.jar; do 
 		java-pkg_newjar ${jar} ${jar}
 	done
 
+	# plugin jars
 	insinto "${gradle_home}/lib/plugins"
 	doins plugins/*
 
