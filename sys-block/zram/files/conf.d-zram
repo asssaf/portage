@@ -1,0 +1,17 @@
+# zram settings...
+
+# load zram kernel module on start?
+LOAD_ON_START="yes"
+
+# unload zram kernel module on stop?
+UNLOAD_ON_STOP="yes"
+
+# number of device
+NUM_DEVICES="1"
+
+# for each /dev/zramN, specify these arguments for zramconfig
+# http://git.kernel.org/?p=linux/kernel/git/torvalds/linux-2.6.git;a=blob;f=drivers/staging/zram/zram.txt;hb=HEAD for more informations.
+ZRAM_DISKSIZE_KB_0="10240"
+#ZRAM_DISKSIZE_KB_1="20480"
+
+#SWAPON_OPTS="--priority 20"

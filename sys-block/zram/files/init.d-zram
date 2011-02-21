@@ -1,0 +1,54 @@
+#!/sbin/runscript
+# Copyright 1999-2009 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+depend() {
+	need localmount
+	after bootmisc modules
+}
+
+start() {
+	if [ "${LOAD_ON_START}" = "yes" ] ; then
+		einfo "Loading zram module..."
+		modprobe zram num_devices=${NUM_DEVICES}
+		eend $?
+	fi
+
+	for I in `seq 0 \`expr ${NUM_DEVICES} - 1\`` ; do
+		eval _disksize=\${ZRAM_DISKSIZE_KB_${I}}
+		einfo "Configuring /dev/zram${I}..."
+		echo $(($_disksize * 1024)) > /sys/block/zram${I}/disksize
+		einfo "Enabling swap /dev/zram${I}..."
+		mkswap "/dev/zram${I}" && \
+		swapon ${SWAPON_OPTS} "/dev/zram${I}"
+		eend $?
+	done
+}
+
+stop() {
+	for I in `seq 0 \`expr ${NUM_DEVICES} - 1\`` ; do
+		einfo "Disabling swap /dev/zram${I}..."
+		swapoff "/dev/zram${I}" && \
+		echo 1 > /sys/block/zram${I}/reset
+		eend $?
+	done
+
+	if [ "${UNLOAD_ON_STOP}" = "yes" ] ; then
+		einfo "Unloading zram module..."
+		rmmod zram
+		eend $?
+	fi
+}
+
+info() {
+	for I in `seq 0 \`expr ${NUM_DEVICES} - 1\`` ; do
+		cat "/sys/block/zram${I}/stats"
+	done
+}
+
+restart() {
+	stop
+	start
+}
+
