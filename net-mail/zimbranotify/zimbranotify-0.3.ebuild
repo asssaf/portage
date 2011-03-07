@@ -12,6 +12,8 @@ KEYWORDS="~amd64"
 
 RDEPEND="dev-lang/perl[ithreads]
 	dev-perl/gtk2-trayicon
+	dev-perl/XML-Simple
+	dev-perl/Crypt-SSLeay
 	crypt? ( dev-perl/FreezeThaw dev-perl/Crypt-Simple dev-perl/Crypt-Blowfish )
 	clickable-urls? ( dev-perl/Gtk2-Sexy )"
 
