@@ -3,6 +3,8 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+opts="info"
+
 depend() {
 	need localmount
 	after bootmisc modules
@@ -43,7 +45,12 @@ stop() {
 
 info() {
 	for I in `seq 0 \`expr ${NUM_DEVICES} - 1\`` ; do
-		cat "/sys/block/zram${I}/stats"
+		einfo "zram${I}:"
+		eindent
+		for statfile in disksize num_reads num_writes invalid_io notify_free zero_pages orig_data_size compr_data_size mem_used_total; do
+			einfo "$statfile: $(cat /sys/block/zram${I}/${statfile})"
+		done
+		eoutdent
 	done
 }
 
