@@ -1,0 +1,80 @@
+diff -auNr a/work/vmblock-only/Makefile b/work/vmblock-only/Makefile
+--- a/work/vmblock-only/Makefile	2012-03-09 10:17:40.000000000 +0200
++++ b/work/vmblock-only/Makefile	2012-03-15 17:24:38.529898998 +0200
+@@ -49,10 +49,10 @@
+ ifdef LINUXINCLUDE
+ HEADER_DIR = $(LINUXINCLUDE)
+ else
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ endif
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmblock
+ PRODUCT := ws
+diff -auNr a/work/vmci-only/Makefile b/work/vmci-only/Makefile
+--- a/work/vmci-only/Makefile	2012-03-09 10:17:40.000000000 +0200
++++ b/work/vmci-only/Makefile	2012-03-15 17:25:20.747675916 +0200
+@@ -49,10 +49,10 @@
+ ifdef LINUXINCLUDE
+ HEADER_DIR = $(LINUXINCLUDE)
+ else
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ endif
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmci
+ PRODUCT := ws
+diff -auNr a/work/vmmon-only/Makefile b/work/vmmon-only/Makefile
+--- a/work/vmmon-only/Makefile	2012-03-09 12:54:43.000000000 +0200
++++ b/work/vmmon-only/Makefile	2012-03-15 17:25:58.067362917 +0200
+@@ -49,10 +49,10 @@
+ ifdef LINUXINCLUDE
+ HEADER_DIR = $(LINUXINCLUDE)
+ else
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ endif
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmmon
+ PRODUCT := @@PRODUCT@@
+diff -auNr a/work/vmnet-only/Makefile b/work/vmnet-only/Makefile
+--- a/work/vmnet-only/Makefile	2012-03-09 12:54:44.000000000 +0200
++++ b/work/vmnet-only/Makefile	2012-03-15 17:26:31.940986685 +0200
+@@ -49,10 +49,10 @@
+ ifdef LINUXINCLUDE
+ HEADER_DIR = $(LINUXINCLUDE)
+ else
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ endif
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vmnet
+ PRODUCT := @@PRODUCT@@
+diff -auNr a/work/vsock-only/Makefile b/work/vsock-only/Makefile
+--- a/work/vsock-only/Makefile	2012-03-09 10:17:40.000000000 +0200
++++ b/work/vsock-only/Makefile	2012-03-15 17:27:07.597643489 +0200
+@@ -49,10 +49,10 @@
+ ifdef LINUXINCLUDE
+ HEADER_DIR = $(LINUXINCLUDE)
+ else
+-HEADER_DIR = /lib/modules/$(VM_UNAME)/build/include
++HEADER_DIR = $(KERNEL_DIR)
+ endif
+ 
+-BUILD_DIR = $(HEADER_DIR)/..
++BUILD_DIR = $(KBUILD_OUTPUT)
+ 
+ DRIVER := vsock
+ PRODUCT := ws
