@@ -1,0 +1,23 @@
+--- usr/NX/share/plugin/nxapplet.html.orig	2009-01-15 21:51:47.000000000 +0200
++++ usr/NX/share/plugin/nxapplet.html	2009-05-18 14:55:23.177833425 +0300
+@@ -60,15 +60,20 @@
+             } 
+             if (is_nav && !SOMAC)
+             {
++/*
+                 for (i = 0; i < navigator.plugins.length; i++)
+                 {
+                 if (navigator.plugins[i].description.indexOf("Java") != -1)
+                     {
++*/
+                         pluginDetected = true;
++
+                         document.writeln('<APPLET ARCHIVE="Java/nxapplet.jar"  CODE="NXApplet.class" NAME= "NX Web Companion" width="400" height="300">');
++/*
+                         break;
+                     }
+                 }
++*/
+             if (pluginDetected == false)
+             {
+               document.write(startMessage+"<div style=\"margin:5px;font-family:arial; font-size:12px;\">The option to support Java applets may be disabled in your browser");
