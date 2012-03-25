@@ -34,8 +34,7 @@ src_install() {
 
 	cp -R usr/NX/share/* ${D}/${MY_HTDOCSDIR}
 
-	#TODO: webapp_postinst_txt en ${FILESDIR}/postinstall-en.txt
-	# Note to the user that she can access the client at http://localhost/nxweb/plugin/nxapplet.html
-
+	webapp_postinst_txt en ${FILESDIR}/postinstall-en.txt
 	webapp_src_install
 }
+

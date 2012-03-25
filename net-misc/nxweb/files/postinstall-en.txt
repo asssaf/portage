@@ -1,0 +1,3 @@
+Before using the web companion you need to generate a session file and place it in ${VHOST_ROOT}/htdocs${VHOST_APPDIR}/plugin/session/session.nxs or edit nxapplet.html to point to a different location.
+
+The web companion can be accessed by browsing to  http://${VHOST_HOSTNAME}${VHOST_APPDIR}/plugin/nxapplet.html
