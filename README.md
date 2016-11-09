@@ -1,6 +1,16 @@
 # portage
 My local portage overlay
 
+/etc/portage/repos.conf/local.conf
+```
+[asssaf-github]
+location = /usr/local/overlay/asssaf-github
+masters = gentoo
+sync-type = git
+sync-uri = https://github.com/asssaf/portage.git
+auto-sync = no
+```
+
 ## Packages
 * app-backup/sparkleshare
 * app-backup/time-drive
