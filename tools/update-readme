@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+
+eix --only-names --in-overlay asssaf-github | sed 's/^/* /' | sed -i -e "/^## Packages/,/^##/ { /## Packages/{p; r /dev/stdin
+}; d }" README.md
+
