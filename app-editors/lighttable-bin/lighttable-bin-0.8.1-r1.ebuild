@@ -1,5 +1,7 @@
 EAPI=6
 
+inherit eutils
+
 DESCRIPTION="The next generation code editor"
 HOMEPAGE="http://lighttable.com/"
 MY_PN="${PN%%-bin}"
@@ -8,7 +10,7 @@ MY_PA="${MY_P}-linux"
 SRC_URI="https://github.com/LightTable/LightTable/releases/download/${PV}/${MY_PA}.tar.gz"
 
 RESTRICT="mirror strip"
-LICENSE=""
+LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
@@ -31,4 +33,7 @@ src_install() {
 	doexe LightTable
 
 	dosym /opt/${MY_PN}/LightTable /usr/bin/LightTable
+
+	newicon resources/app/core/img/lticon.png lighttable.png
+	make_desktop_entry /opt/${MY_PN}/LightTable LightTable lighttable
 }
