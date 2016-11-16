@@ -35,5 +35,5 @@ src_install() {
 	dosym /opt/${MY_PN}/LightTable /usr/bin/LightTable
 
 	newicon resources/app/core/img/lticon.png lighttable.png
-	make_desktop_entry /opt/${MY_PN}/LightTable LightTable lighttable
+	make_desktop_entry "/opt/${MY_PN}/LightTable %F" LightTable lighttable "Utility;Development;TextEditor;" "MimeType=text/plain"
 }
