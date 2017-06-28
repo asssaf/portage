@@ -8,7 +8,7 @@ RESTRICT="mirror"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="extras"
 
 DEPEND="dev-util/ragel
 	dev-util/cmake
@@ -20,6 +20,18 @@ RDEPEND="dev-libs/libsigsegv
 	sys-libs/ncurses
 	net-misc/curl"
 
+src_compile() {
+	# force non parallel make, otherwise there are some nondeterministic failures
+	emake -j1 || die "emake failed"
+}
+
 src_install() {
 	dobin bin/urbit
+	dodoc CONTRIBUTING.md LICENSE.txt README.md
+	dodoc -r Spec
+
+	if use extras ; then
+		insinto /usr/share/$PN
+		doins -r extras
+	fi
 }
