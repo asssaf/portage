@@ -1,0 +1,12 @@
+diff -auNr urbit-0.4.5.orig/Makefile urbit-0.4.5.new/Makefile
+--- urbit-0.4.5.orig/Makefile	2017-05-11 04:01:11.000000000 -0700
++++ urbit-0.4.5.new/Makefile	2017-08-28 17:49:46.260429592 -0700
+@@ -108,7 +108,7 @@
+ #   -DHUSH
+ CFLAGS+= $(COSFLAGS) -ffast-math \
+ 	-funsigned-char \
+-	-I/usr/local/include \
++	-I/usr/include \
+ 	$(OPTLOCALIFLAGS) \
+ 	$(OPENSSLIFLAGS) \
+ 	$(CURLINC) \

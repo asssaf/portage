@@ -1,0 +1,86 @@
+diff -auNr urbit-0.4.5.orig/Makefile urbit-0.4.5.new/Makefile
+--- urbit-0.4.5.orig/Makefile	2017-05-11 04:01:11.000000000 -0700
++++ urbit-0.4.5.new/Makefile	2017-08-28 17:52:44.870426243 -0700
+@@ -99,10 +99,6 @@
+ CFLAGS?=-O3
+ endif
+ 
+-LIBUV_VER=libuv-v1.7.5
+-
+-LIBUV_CONFIGURE_OPTIONS=CC=$(CC)
+-
+ # NOTFORCHECKIN - restore -O3
+ # 	-DGHETTO \
+ #   -DHUSH
+@@ -113,7 +109,6 @@
+ 	$(OPENSSLIFLAGS) \
+ 	$(CURLINC) \
+ 	-I$(INCLUDE) \
+-	-Ioutside/$(LIBUV_VER)/include \
+ 	-Ioutside/anachronism/include \
+ 	-Ioutside/ed25519/src \
+ 	-Ioutside/commonmark/src \
+@@ -377,24 +372,7 @@
+ 
+ -include $(VERE_DFILES)
+ 
+-# This is a silly hack necessitated by the fact that libuv uses configure
+-#
+-#    * Making 'all' obviously requires outside/libuv,
+-#      which requires the libuv Makefile to be created.
+-#    * Making distclean on outside/libuv destroys the makefile.
+-#    * ...so configuring outside/libuv is parodoxically required
+-#      in order to distclean it!
+-#    * But what if developer types 'make distclean all' ?
+-#    * first target makes libuv Makefile, then destroys it...and
+-#      second target knows that it was made.
+-#    * ...so second target borks.
+-#    * Solution: make libuv not only depend on its own Makefile,
+-#      but on a side effect of creating its own makefile.
+-#
+-LIBUV_MAKEFILE=outside/$(LIBUV_VER)/Makefile
+-LIBUV_MAKEFILE2=outside/$(LIBUV_VER)/config.log
+-
+-LIBUV=outside/$(LIBUV_VER)/.libs/libuv.a
++LIBUV=-luv
+ 
+ LIBED25519=outside/ed25519/ed25519.a
+ 
+@@ -423,27 +401,6 @@
+ 
+ urbit: $(BIN)/urbit
+ 
+-$(LIBUV_MAKEFILE) $(LIBUV_MAKEFILE2):
+-	cd outside/$(LIBUV_VER) ; sh autogen.sh ; ./configure $(LIBUV_CONFIGURE_OPTIONS)
+-
+-# [h]act II: the plot thickens
+-#
+-#     * Specifying two targets that each configure libuv works
+-#       when the rules are executed sequentially,
+-#     * but when attempting a parallel build, it is likely Make
+-#       will try to configure libuv simultaneously.
+-#     * We can specify a dependency between the two targets so
+-#       that execution of their rule(s) is serialized.
+-#     * Further, libuv does not seem to be friendly towards
+-#       parallel builds either. A true fix is out of scope here
+-#     * ...so we must instruct Make to only use one job when it
+-#       attempts to build libuv.
+-#
+-$(LIBUV_MAKEFILE2): $(LIBUV_MAKEFILE)
+-
+-$(LIBUV): $(LIBUV_MAKEFILE) $(LIBUV_MAKEFILE2)
+-	$(MAKE) -C outside/$(LIBUV_VER) all-am -j1
+-
+ $(LIBED25519):
+ 	$(MAKE) -C outside/ed25519
+ 
+@@ -509,8 +466,7 @@
+ 
+ # 'make distclean all -jn' ∀ n>1 still does not work because it is possible
+ # Make will attempt to build urbit while it is also cleaning urbit..
+-distclean: clean $(LIBUV_MAKEFILE)
+-	$(MAKE) -C outside/$(LIBUV_VER) distclean
++distclean: clean
+ 	$(MAKE) -C outside/ed25519 clean
+ 	$(MAKE) -C outside/anachronism clean
+ 	$(MAKE) -C outside/scrypt clean
