@@ -4,7 +4,7 @@
 
 EAPI=7
 
-inherit eutils linux-mod git-r3
+inherit linux-mod git-r3
 
 DESCRIPTION="Reverse engineered Linux driver for the Broadcom 1570 PCIe webcam"
 HOMEPAGE="https://github.com/patjak/bcwc_pcie"
